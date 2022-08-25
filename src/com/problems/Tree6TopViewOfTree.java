@@ -66,6 +66,7 @@ public class Tree6TopViewOfTree {
 		root.right = new TreeNode(3);
 		root.right.right = new TreeNode(7);
 		
+		topViewOfTree(root);
 
 	}
 
