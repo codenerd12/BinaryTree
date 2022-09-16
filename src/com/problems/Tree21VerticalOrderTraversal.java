@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.TreeMap;
 
@@ -25,7 +26,7 @@ public class Tree21VerticalOrderTraversal {
 	
 	public static void verticalTraversal(TreeNode root) {
 		
-		Map<Integer, Map<Integer,List<Integer>>> map = new TreeMap<>();
+		Map<Integer, Map<Integer,PriorityQueue<Integer>>> map = new TreeMap<>();
 		
 		Queue<Pair> queue = new LinkedList<>();
 		queue.add(new Pair(0, 0, root));
@@ -43,7 +44,7 @@ public class Tree21VerticalOrderTraversal {
 				} 
 				
 				if(!map.get(vert).containsKey(level)) {
-					map.get(vert).put(level, new ArrayList<>());
+					map.get(vert).put(level, new PriorityQueue<>());
 				}
 				
 				map.get(vert).get(level).add(node.data);
@@ -63,16 +64,15 @@ public class Tree21VerticalOrderTraversal {
 		//System.out.println(map);
 		List<List<Integer>> ans = new ArrayList<>();
 		
-		for(Map<Integer, List<Integer>> level:map.values()) {
+		for(Map<Integer, PriorityQueue<Integer>> level:map.values()) {
 			List<Integer> list = new ArrayList<>();
-			for(List<Integer> temp:level.values()) {
-				
-				for(int i=0;i<temp.size();i++)
-					list.add(temp.get(i));
-					
-			}
-			//Collections.sort(list);
-			ans.add(list);
+			 for(PriorityQueue<Integer> temp:level.values()) {
+	                
+	                while(!temp.isEmpty())
+	                    list.add(temp.poll());
+	                
+	         }
+			 ans.add(list);
 			
 		}
 		
